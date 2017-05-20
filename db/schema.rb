@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170519184936) do
+ActiveRecord::Schema.define(version: 20170520150128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,30 @@ ActiveRecord::Schema.define(version: 20170519184936) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "squad_mentors", force: :cascade do |t|
+    t.integer  "squad_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["squad_id", "user_id"], name: "index_squad_mentors_on_squad_id_and_user_id", unique: true, using: :btree
+    t.index ["squad_id"], name: "index_squad_mentors_on_squad_id", using: :btree
+    t.index ["user_id"], name: "index_squad_mentors_on_user_id", using: :btree
+  end
+
+  create_table "squads", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "leader_id"
+    t.integer  "minimum"
+    t.integer  "maximum"
+    t.string   "skill_level"
+    t.text     "activities"
+    t.text     "end_condition"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["leader_id"], name: "index_squads_on_leader_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -63,4 +87,6 @@ ActiveRecord::Schema.define(version: 20170519184936) do
   end
 
   add_foreign_key "requests", "users"
+  add_foreign_key "squad_mentors", "squads"
+  add_foreign_key "squad_mentors", "users"
 end
