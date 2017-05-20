@@ -1,7 +1,7 @@
 module Api
   module V1
     class RequestsController < ApplicationController
-      before_action :authenticate_user!
+      # before_action :authenticate_user!
 
       def index
         render json: Request.unclaimed.order('created_at DESC')

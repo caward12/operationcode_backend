@@ -21,4 +21,24 @@ class Api::V1::RequestsControllerTest < ActionDispatch::IntegrationTest
     assert_equal params[:request][:service_id], response.parsed_body['service_id']
   end
 
+  test "show individual request" do
+    user = create(:user)
+    headers = authorization_headers(user)
+    params = {
+      request: {
+        id: 1,
+        details: 'New Request',
+        language: 'Javascript',
+        service_id: 2
+      }
+    }
+
+    get api_v1_request_url, headers: headers, params: params, as: :json
+
+    assert_equal user.id, response.parsed_body['user']['id']
+    assert_equal params[:request][:details], response.parsed_body['details']
+    assert_equal params[:request][:language], response.parsed_body['language']
+    assert_equal params[:request][:service_id], response.parsed_body['service_id']
+  end
+
 end
