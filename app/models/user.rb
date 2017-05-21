@@ -17,9 +17,9 @@ class User < ApplicationRecord
   scope :mentors, -> { where(mentor: true) }
 
   def welcome_user
-    invite_to_slack
-    add_to_mailchimp
-    add_to_airtables
+    # invite_to_slack
+    # add_to_mailchimp
+    # add_to_airtables
   end
 
   def invite_to_slack
