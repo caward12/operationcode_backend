@@ -20,9 +20,10 @@ default: &default
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  user: postgres
-  host: operationcode-psql
-  password: <%= OperationCode.fetch_secret_with name: :postgres_password %>
+  # user: postgres
+  # host: operationcode-psql
+  #host: localhost
+  #password: <%= OperationCode.fetch_secret_with name: :postgres_password %>
 
 development:
   <<: *default
@@ -33,5 +34,4 @@ test:
   database: operationcode_test
 
 production:
-  <<: *default
   database: operationcode_production
